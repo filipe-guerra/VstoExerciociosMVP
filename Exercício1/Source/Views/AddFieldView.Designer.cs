@@ -37,13 +37,13 @@
             // buttonCancelField
             // 
             this.buttonCancelField.Location = new System.Drawing.Point(52, 119);
-            this.buttonCancelField.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonCancelField.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancelField.Name = "buttonCancelField";
             this.buttonCancelField.Size = new System.Drawing.Size(100, 28);
             this.buttonCancelField.TabIndex = 8;
             this.buttonCancelField.Text = "Cancelar";
             this.buttonCancelField.UseVisualStyleBackColor = true;
-            this.buttonCancelField.Click += new System.EventHandler(this.buttonCancelSpan_Click);
+            this.buttonCancelField.Click += new System.EventHandler(this.buttonCancelField_Click);
             // 
             // label1
             // 
@@ -58,7 +58,7 @@
             // textBoxExpressao
             // 
             this.textBoxExpressao.Location = new System.Drawing.Point(52, 79);
-            this.textBoxExpressao.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxExpressao.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxExpressao.Name = "textBoxExpressao";
             this.textBoxExpressao.Size = new System.Drawing.Size(216, 22);
             this.textBoxExpressao.TabIndex = 6;
@@ -66,13 +66,13 @@
             // buttonFieldOK
             // 
             this.buttonFieldOK.Location = new System.Drawing.Point(169, 119);
-            this.buttonFieldOK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonFieldOK.Margin = new System.Windows.Forms.Padding(4);
             this.buttonFieldOK.Name = "buttonFieldOK";
             this.buttonFieldOK.Size = new System.Drawing.Size(100, 28);
             this.buttonFieldOK.TabIndex = 5;
             this.buttonFieldOK.Text = "OK";
             this.buttonFieldOK.UseVisualStyleBackColor = true;
-            this.buttonFieldOK.Click += new System.EventHandler(this.buttonSpanOK_Click);
+            this.buttonFieldOK.Click += new System.EventHandler(this.buttonFieldOK_Click);
             // 
             // AddField
             // 
@@ -83,7 +83,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxExpressao);
             this.Controls.Add(this.buttonFieldOK);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AddField";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Adicionar Expressão";

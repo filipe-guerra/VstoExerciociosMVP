@@ -5,19 +5,22 @@ using System.IO;
 using Microsoft.Office.Interop.Word;
 using Microsoft.Office.Tools.Word;
 using System;
+using Exercício1.Presenters;
+using Exercício1.Source.Views;
+using WinFormsMvp;
 
 namespace Exercício1
 {
     public partial class Ribbon1
     {
-        private FindPanelPresenter myUserControl;
-        private Microsoft.Office.Tools.CustomTaskPane myCustomTaskPane;
+        static private FindPanelPresenter myUserControl;
+        static private Microsoft.Office.Tools.CustomTaskPane myCustomTaskPane;
 
         private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
         {
             myUserControl = new FindPanelPresenter();
             myCustomTaskPane = Globals.ThisAddIn.CustomTaskPanes.Add(myUserControl, "Find and Replace");
-            myCustomTaskPane.Visible = false;
+            myCustomTaskPane.Width = 320;
             Globals.ThisAddIn.Application.DocumentChange += Application_DocumentChange;
         }
 
@@ -47,22 +50,23 @@ namespace Exercício1
 
         private void btnSave_as_PDF_Click(object sender, RibbonControlEventArgs e)
         {
-            RibbonPresenter.savePDF();
+            SaveAsPDFView spdf = new SaveAsPDFView(); 
         }
 
         private void AddImage_Click(object sender, RibbonControlEventArgs e)
         {
-            RibbonPresenter.addImage();
+            AddImage addim = new AddImage();
         }
 
         private void insTabela_Click(object sender, RibbonControlEventArgs e)
         {
-            RibbonPresenter.inserirTabela();
+            InserirTabelaView insT = new InserirTabelaView();
+            insT.ShowDialog();
         }
 
         private void invertCase_Click(object sender, RibbonControlEventArgs e)
         {
-            RibbonPresenter.invertCase();
+            InvertCase ivc = new InvertCase();
         }
 
         private void findReplace_Click(object sender, RibbonControlEventArgs e)
@@ -72,22 +76,25 @@ namespace Exercício1
 
         private void addSpan_Click(object sender, RibbonControlEventArgs e)
         {
-            RibbonPresenter.criarSpanForm();
+            AddSpan addsp = new AddSpan();
+            addsp.ShowDialog();
         }
 
         private void addField_Click(object sender, RibbonControlEventArgs e)
         {
-            RibbonPresenter.criarFieldForm();
+            AddField addfd = new AddField();
+            addfd.ShowDialog();
         }
 
         private void qualificacaoPJ_Click(object sender, RibbonControlEventArgs e)
         {
-            RibbonPresenter.criarQualificacaoForm();
+            QualificacaoForm addql = new QualificacaoForm();
+            addql.ShowDialog();
         }
 
         private void InsertXML_Click(object sender, RibbonControlEventArgs e)
         {
-            RibbonPresenter.inserirXML(); 
+            //RibbonPresenter.inserirXML(); 
         }
     }
 }

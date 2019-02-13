@@ -10,13 +10,14 @@ namespace Exercício1
 {
     class FindPanel
     {
-        static private Word.Selection selecao = Globals.ThisAddIn.Application.Selection;
-        private static Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
-        private static Word.Selection selection = Globals.ThisAddIn.Application.ActiveDocument.Application.Selection;
-        private static Word.Find findObject = Globals.ThisAddIn.Application.Selection.Find;
-        
         public static void findNext(string txt, bool caseSens)
         {
+            Word.Selection selecao = Globals.ThisAddIn.Application.Selection;
+            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
+            Word.Selection selection = Globals.ThisAddIn.Application.ActiveDocument.Application.Selection;
+            Word.Find findObject = Globals.ThisAddIn.Application.Selection.Find;
+
+
             object findText = txt;
             selection.Find.ClearFormatting();
             selection.Find.Forward = true;
@@ -34,6 +35,11 @@ namespace Exercício1
 
         public static void replaceAll(string txt, string rpl, bool caseSens)
         {
+            Word.Selection selecao = Globals.ThisAddIn.Application.Selection;
+            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
+            Word.Selection selection = Globals.ThisAddIn.Application.ActiveDocument.Application.Selection;
+            Word.Find findObject = Globals.ThisAddIn.Application.Selection.Find;
+
             object findText = txt;
             selection.Find.ClearFormatting();
             selection.Find.Forward = true;
@@ -71,6 +77,11 @@ namespace Exercício1
 
         public static void replace(string txt, string rpl, bool caseSens)
         {
+            Word.Selection selecao = Globals.ThisAddIn.Application.Selection;
+            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
+            Word.Selection selection = Globals.ThisAddIn.Application.ActiveDocument.Application.Selection;
+            Word.Find findObject = Globals.ThisAddIn.Application.Selection.Find;
+
             object findText = txt;
             selection.Find.ClearFormatting();
             selection.Find.Forward = true;

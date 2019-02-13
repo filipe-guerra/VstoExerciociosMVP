@@ -37,7 +37,7 @@
             // buttonSpanOK
             // 
             this.buttonSpanOK.Location = new System.Drawing.Point(164, 107);
-            this.buttonSpanOK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonSpanOK.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSpanOK.Name = "buttonSpanOK";
             this.buttonSpanOK.Size = new System.Drawing.Size(100, 28);
             this.buttonSpanOK.TabIndex = 0;
@@ -48,7 +48,7 @@
             // textBoxSpan
             // 
             this.textBoxSpan.Location = new System.Drawing.Point(47, 66);
-            this.textBoxSpan.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxSpan.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxSpan.Name = "textBoxSpan";
             this.textBoxSpan.Size = new System.Drawing.Size(216, 22);
             this.textBoxSpan.TabIndex = 1;
@@ -66,7 +66,7 @@
             // buttonCancelSpan
             // 
             this.buttonCancelSpan.Location = new System.Drawing.Point(47, 107);
-            this.buttonCancelSpan.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonCancelSpan.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancelSpan.Name = "buttonCancelSpan";
             this.buttonCancelSpan.Size = new System.Drawing.Size(100, 28);
             this.buttonCancelSpan.TabIndex = 4;
@@ -83,7 +83,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxSpan);
             this.Controls.Add(this.buttonSpanOK);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AddSpan";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Adicionar Span";
