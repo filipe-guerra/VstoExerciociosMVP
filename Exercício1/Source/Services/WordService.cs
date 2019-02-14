@@ -1,42 +1,33 @@
-﻿using Microsoft.Office.Tools.Ribbon;
-using Word = Microsoft.Office.Interop.Word;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System;
+using Word = Microsoft.Office.Interop.Word;
 
-namespace Exercício1
+namespace Exercício1.Source.Services
 {
-    class RibbonPresenter
+    class WordService : IWordService
     {
-        //static private Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
-        //static private Word.Selection selecao = Globals.ThisAddIn.Application.Selection;
-        //static private AddSpan span;
-        //static private AddField addField;
-        //static private QualificacaoForm qualForm;
-        /*
-        private static string fullPath()
+        private static readonly Lazy<IWordService> instance =
+            new Lazy<IWordService>(() => new WordService());
+
+        public static IWordService Instance
         {
-            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
-            string sfileName_Document = doc.Name;
-            string sPath = doc.Path;
-            string sFullpath_pdf = sPath + "\\" + sfileName_Document + ".pdf";
-            return sFullpath_pdf;
+            get { return instance.Value; }
         }
 
-        public static void savePDF()
+        public void addFieldService(string txt)
         {
             Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
-            try
-            {
-                doc.ExportAsFixedFormat(fullPath(), Word.WdExportFormat.wdExportFormatPDF, OpenAfterExport: true);
-            }
-            catch (System.Runtime.InteropServices.COMException e)
-            {
-                MessageBox.Show("Verifique se seu arquivo está salvo em algum local válido!\n\n" + e.Message);
-            }
+            var selecao = doc.Application.Selection;
+
+            selecao.Font.Subscript = 0;
+            selecao.TypeText("{" + txt + "}");
         }
 
-        public static void addImage()
+        public void addImagemService()
         {
             Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
 
@@ -56,38 +47,122 @@ namespace Exercício1
                 }
             }
         }
-        */
-        /*public static void inserirTabela()
+
+        public void addSpanService(string txt)
         {
-            //TableConfigWindow tableconf = new TableConfigWindow();
-           //tableconf.Show();
+            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
+            var selecao = doc.Application.Selection;
+
+            selecao.Font.Subscript = 0;
+            selecao.InsertBefore("[");
+            selecao.InsertAfter("]");
+            doc.Range(doc.Application.Selection.Start + 1, doc.Application.Selection.Start + 1).Select();
+            selecao.InsertBefore(txt);
+            selecao.Font.Subscript = -1;
+            doc.Range(selecao.Start - 1, selecao.Start - 1).Select();
         }
 
-        public static void criarTabela(string ln, string cl, TableConfigWindow tableconf)
+        public void findNextService(string txt, bool caseSens)
+        {
+            Word.Selection selecao = Globals.ThisAddIn.Application.Selection;
+            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
+            Word.Selection selection = Globals.ThisAddIn.Application.ActiveDocument.Application.Selection;
+            Word.Find findObject = Globals.ThisAddIn.Application.Selection.Find;
+
+            object findText = txt;
+            selection.Find.ClearFormatting();
+            selection.Find.Forward = true;
+            selection.Find.MatchCase = caseSens;
+            selection.Find.Execute(ref findText);
+
+            if (!selection.Find.Found)
+            {
+                doc.Range(0, 0).Select();
+                selection.Find.Execute(ref findText);
+                if (!selection.Find.Found) { MessageBox.Show("Nenhuma ocorrência encontrada!"); }
+            }
+        }
+
+        public void replaceAllService(string findtxt, string replacetxt, bool caseSens)
+        {
+            Word.Selection selecao = Globals.ThisAddIn.Application.Selection;
+            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
+            Word.Selection selection = Globals.ThisAddIn.Application.ActiveDocument.Application.Selection;
+            Word.Find findObject = Globals.ThisAddIn.Application.Selection.Find;
+
+            object findText = findtxt;
+            selection.Find.ClearFormatting();
+            selection.Find.Forward = true;
+            selection.Find.MatchCase = caseSens;
+            doc.Range(selecao.Start, selecao.Start).Select();
+            //selection.Find.Text = txt;
+
+            selection.Find.Execute(ref findText);
+            if (selection.Find.Found)
+            { selection.TypeText(replacetxt); }
+
+            while (selection.Find.Found)
+            {
+                selection.Find.Execute(ref findText);
+                if (selection.Find.Found) { selection.TypeText(replacetxt); }
+            }
+
+            if (!selection.Find.Found)
+            {
+
+                doc.Range(0, 0).Select();
+
+                selection.Find.Execute(ref findText);
+                if (selection.Find.Found)
+                { selection.TypeText(replacetxt); }
+
+                while (selection.Find.Found)
+                {
+                    selection.Find.Execute(ref findText);
+                    if (selection.Find.Found) { selection.TypeText(replacetxt); }
+                }
+            }
+        }
+
+        public void replaceService(string findtxt, string replacetxt, bool caseSens)
+        {
+            Word.Selection selecao = Globals.ThisAddIn.Application.Selection;
+            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
+            Word.Selection selection = Globals.ThisAddIn.Application.ActiveDocument.Application.Selection;
+            Word.Find findObject = Globals.ThisAddIn.Application.Selection.Find;
+
+            object findText = findtxt;
+            selection.Find.ClearFormatting();
+            selection.Find.Forward = true;
+            selection.Find.MatchCase = caseSens;
+            doc.Range(selecao.Start, selecao.Start).Select();
+            //selection.Find.Text = txt;
+
+            selection.Find.Execute(ref findText);
+            if (selection.Find.Found)
+            { selection.TypeText(replacetxt); }
+            selection.Find.Execute(ref findText);
+        }
+
+        public void inserirTabelaService(int lin, int col)
         {
             Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
 
-            int linha, coluna;
-            Int32.TryParse(ln, out linha);
-            Int32.TryParse(cl, out coluna);
-
             Word.Range rg = Globals.ThisAddIn.Application.Selection.Range;
-            var tab = doc.Tables.Add(rg, linha, coluna);
+            var tab = doc.Tables.Add(rg, lin, col);
 
             try
             {
                 tab.set_Style("Tabela com grade");
             }
-            catch (System.Runtime.InteropServices.COMException e)
+            catch (System.Runtime.InteropServices.COMException f)
             {
                 tab.set_Style("Table Grid 8");
-                Console.WriteLine(e);
+                Console.WriteLine(f);
             }
+        }
 
-            tableconf.Close();
-        }*/
-        /*
-        public static void invertCase()
+        public void invertCaseService()
         {
             Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
 
@@ -112,58 +187,32 @@ namespace Exercício1
             doc.Range(start, end).Select();
         }
 
-        public static void criarSpanForm()
+        public void savePDFService()
         {
-            span = new AddSpan();
-            span.Show();
+            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
+            try
+            {
+                doc.ExportAsFixedFormat(fullPathService(), Word.WdExportFormat.wdExportFormatPDF, OpenAfterExport: true);
+            }
+            catch (System.Runtime.InteropServices.COMException f)
+            {
+                MessageBox.Show("Verifique se seu arquivo está salvo em algum local válido!\n\n" + f.Message);
+            }
         }
 
-        private static void fecharSpan() { span.Close(); }
+        public string fullPathService()
+        {
+            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
+            string sfileName_Document = doc.Name;
+            string sPath = doc.Path;
+            string sFullpath_pdf = sPath + "\\" + sfileName_Document + ".pdf";
+            return sFullpath_pdf;
+        }
 
-        public static void adicionarSpan(string span)
+        public void qualficacaoService(string cPJ, string cPF)
         {
             Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
             var selecao = doc.Application.Selection;
-
-            selecao.Font.Subscript = 0;
-            selecao.InsertBefore("[");
-            selecao.InsertAfter("]");
-            doc.Range(doc.Application.Selection.Start + 1, doc.Application.Selection.Start + 1).Select();
-            selecao.InsertBefore(span);
-            selecao.Font.Subscript = -1;
-            doc.Range(selecao.Start - 1, selecao.Start - 1).Select();
-            fecharSpan();
-        }
-
-        public static void criarFieldForm()
-        {
-            addField = new AddField();
-            addField.Show();
-        }
-        private static void fecharAddField() { addField.Close(); }
-
-        public static void adicionarExpressao(string exp)
-        {
-            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
-            var selecao = doc.Application.Selection;
-            
-            selecao.Font.Subscript = 0;
-            selecao.TypeText("{" + exp + "}");
-            fecharAddField();
-        }
-
-        public static void criarQualificacaoForm()
-        {
-            qualForm = new QualificacaoForm();
-            qualForm.Show();
-        }
-        private static void fecharQualForm() { qualForm.Close(); }
-
-        public static void adicionarQualificacao(string cPJ, string cPF)
-        {
-            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
-            var selecao = doc.Application.Selection;
-            fecharQualForm();
 
             //Qualificacao PJ
             selecao.Font.Subscript = 0;
@@ -259,22 +308,11 @@ namespace Exercício1
             selecao.TypeText(String.Format("{0}.Pais != \"Brasil\"", cPF));
             selecao.Font.Subscript = 0;
             selecao.TypeText(String.Format("Código Postal]: {{{0}.CEP}}{{sinal}}]", cPF));
+
+            /*selecao.Font.Subscript = 0;
+            selecao.TypeText(String.Format("", cPF));
+            selecao.Font.Subscript = -1;
+            selecao.TypeText(String.Format("", cPF));*/
         }
-
-        public static void inserirXML()
-        {
-            Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
-
-            string xmlString = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" +
-                                "<employees xmlns=\"http://schemas.microsoft.com/vsto/samples\">" +
-                                    "<employee>" +
-                                        "<name>Karina Leal</name>" +
-                                        "<hireDate>1999-04-01</hireDate>" +
-                                        "<title>Manager</title>" +
-                                    "</employee>" +
-                                "</employees>";
-
-            doc.Range().InsertXML(xmlString);
-        }*/
     }
 }

@@ -10,5 +10,6 @@ namespace Exercício1.Source.Views
     public interface ISaveAsPDF : IView
     {
         event EventHandler doIt;
+        void ErroMsgBox(string f);
     }
 }

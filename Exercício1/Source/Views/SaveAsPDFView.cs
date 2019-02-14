@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WinFormsMvp.Forms;
 using Exercício1.Source.Views;
+using System.Windows.Forms;
 
 namespace Exercício1
 {
@@ -17,5 +18,10 @@ namespace Exercício1
             Close();
         }
         public event EventHandler doIt;
+
+        public void ErroMsgBox(string f)
+        {
+            MessageBox.Show("Verifique se seu arquivo está salvo em algum local válido!\n\n" + f);
+        }
     }
 }

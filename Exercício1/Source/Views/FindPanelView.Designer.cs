@@ -1,6 +1,6 @@
-﻿namespace Exercício1
+﻿namespace Exercício1.Source.Views
 {
-    partial class FindPanelPresenter
+    partial class FindPanel
     {
         /// <summary> 
         /// Variável de designer necessária.
@@ -45,7 +45,7 @@
             this.findBox.Size = new System.Drawing.Size(228, 22);
             this.findBox.TabIndex = 0;
             this.findBox.Text = "Find what";
-            this.findBox.TextChanged += new System.EventHandler(this.findBox_TextChanged);
+            this.findBox.TextChanged += new System.EventHandler(this.evfindBox_TextChanged);
             // 
             // findNext
             // 
@@ -89,7 +89,7 @@
             this.replaceBox.Size = new System.Drawing.Size(228, 22);
             this.replaceBox.TabIndex = 4;
             this.replaceBox.Text = "Replace";
-            this.replaceBox.TextChanged += new System.EventHandler(this.replaceBox_TextChanged);
+            this.replaceBox.TextChanged += new System.EventHandler(this.evReplaceBox_TextChanged);
             // 
             // checkBoxCase
             // 
@@ -115,7 +115,6 @@
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FindPanelPresenter";
             this.Size = new System.Drawing.Size(311, 468);
-            this.Load += new System.EventHandler(this.MyUserControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

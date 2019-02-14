@@ -21,11 +21,7 @@ namespace Exercício1
         
         public string contatoPJ =>  textBoxPJ.Text;
         public string contatoPF => textBoxPF.Text;
-
-        public bool ThrowExceptionIfNoPresenterBound => throw new NotImplementedException();
-
         public event EventHandler btnOkClick;
-        public event EventHandler Load;
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {

@@ -199,6 +199,8 @@
     <Compile Include="Source\Presenters\InvertCasePresenter.cs" />
     <Compile Include="Source\Presenters\QualificacaoPresenter.cs" />
     <Compile Include="Source\Presenters\SaveAsPDFPresenter.cs" />
+    <Compile Include="Source\Services\IWordService.cs" />
+    <Compile Include="Source\Services\WordService.cs" />
     <Compile Include="Source\Views\AddFieldView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -214,7 +216,7 @@
     <Compile Include="Source\Views\AddSpanView.Designer.cs">
       <DependentUpon>AddSpanView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Source\Presenters\FindPanel.cs" />
+    <Compile Include="Source\Presenters\FindPanelPresenter.cs" />
     <Compile Include="Source\Views\FindPanelView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -265,6 +267,7 @@
     <Compile Include="Source\Views\IAddFieldView.cs" />
     <Compile Include="Source\Views\IAddImage.cs" />
     <Compile Include="Source\Views\IAddSpanView.cs" />
+    <Compile Include="Source\Views\IFindPanel.cs" />
     <Compile Include="Source\Views\IInserirTabela.cs" />
     <Compile Include="Source\Views\InserirTabelaView.cs">
       <SubType>Form</SubType>
