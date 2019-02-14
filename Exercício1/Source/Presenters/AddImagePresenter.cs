@@ -19,6 +19,13 @@ namespace Exercício1.Presenters
             wordService = WordService.Instance;
         }
 
-        private void adicionarImagem(object sender, EventArgs e) =>  wordService.addImagemService();
+        private void adicionarImagem(object sender, EventArgs e)
+        {
+            string path = View.openDialogAddImage();
+            if (path.Length > 0)
+            {
+                wordService.addImagemService(path);
+            }
+        }
     }
 }

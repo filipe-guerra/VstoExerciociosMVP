@@ -54,5 +54,10 @@ namespace Exercício1.Source.Views
 
         private void replace_Click(object sender, EventArgs e) => 
             evReplace(sender, e);
+
+        public void messageBox(string f)
+        {
+            MessageBox.Show(f);
+        }
     }
 }

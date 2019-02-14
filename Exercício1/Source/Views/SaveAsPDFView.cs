@@ -21,7 +21,7 @@ namespace Exercício1
 
         public void ErroMsgBox(string f)
         {
-            MessageBox.Show("Verifique se seu arquivo está salvo em algum local válido!\n\n" + f);
+            MessageBox.Show(f);
         }
     }
 }

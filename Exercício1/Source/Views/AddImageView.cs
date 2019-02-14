@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WinFormsMvp.Forms;
 using Exercício1.Source.Views;
+using System.Windows.Forms;
 
 namespace Exercício1
 {
@@ -18,5 +19,25 @@ namespace Exercício1
         }
 
         public event EventHandler imageAdd;
+
+        public string openDialogAddImage()
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = @"C:\Users\Netlex\Google Drive\Minhas automatizações\Outros";
+                //openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                openFileDialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+                //selecao.Select();
+
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    return openFileDialog.FileName;
+                }
+                else return "";
+            }
+        }
     }
 }

@@ -19,7 +19,14 @@ namespace Exercício1.Presenters
             wordService = WordService.Instance;
         }
 
-        private void savePDF(object sender, EventArgs e) =>
-            wordService.savePDFService();
+        private void savePDF(object sender, EventArgs e)
+        {
+            if (wordService.savePDFService().Length > 0)
+            {
+                View.ErroMsgBox(wordService.savePDFService());
+            }
+            
+        }
+            
     }
 }

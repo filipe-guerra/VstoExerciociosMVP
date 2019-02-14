@@ -10,5 +10,6 @@ namespace Exercício1.Source.Views
     public interface IAddImage : IView
     {
         event EventHandler imageAdd;
+        string openDialogAddImage();
     }
 }

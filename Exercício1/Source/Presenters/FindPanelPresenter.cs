@@ -24,8 +24,13 @@ namespace Exercício1.Presenters
             wordService = WordService.Instance;
         }
 
-        public void findNext(object sender, EventArgs e) => 
-            wordService.findNextService(View.findWhatText, View.caseSensitive);
+        public void findNext(object sender, EventArgs e)
+        {
+            if (wordService.findNextService(View.findWhatText, View.caseSensitive).Length > 0)
+            {
+                View.messageBox(wordService.findNextService(View.findWhatText, View.caseSensitive));
+            }
+        }            
 
         public void replaceAll(object sender, EventArgs e) => 
             wordService.replaceAllService(View.findWhatText, View.replaceText, View.caseSensitive);

@@ -20,5 +20,6 @@ namespace Exercício1.Source.Views
         bool caseSensitive { get; }
         bool setButtons { set; }
         bool setReplaceButtons { set; }
+        void messageBox(string f);
     }
 }

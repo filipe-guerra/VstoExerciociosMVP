@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace Exercício1.Source.Services
@@ -27,25 +27,11 @@ namespace Exercício1.Source.Services
             selecao.TypeText("{" + txt + "}");
         }
 
-        public void addImagemService()
+        public void addImagemService(string path)
         {
             Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
-
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.InitialDirectory = @"C:\Users\Netlex\Google Drive\Minhas automatizações\Outros";
-                //openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-                openFileDialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF|All files (*.*)|*.*";
-                openFileDialog.FilterIndex = 1;
-                openFileDialog.RestoreDirectory = true;
-                //selecao.Select();
-                doc.Select();
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    doc.InlineShapes.AddPicture(openFileDialog.FileName);
-                }
-            }
+            var selecao = doc.Application.Selection;
+            selecao.InlineShapes.AddPicture(path);
         }
 
         public void addSpanService(string txt)
@@ -62,7 +48,7 @@ namespace Exercício1.Source.Services
             doc.Range(selecao.Start - 1, selecao.Start - 1).Select();
         }
 
-        public void findNextService(string txt, bool caseSens)
+        public string findNextService(string txt, bool caseSens)
         {
             Word.Selection selecao = Globals.ThisAddIn.Application.Selection;
             Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
@@ -79,8 +65,9 @@ namespace Exercício1.Source.Services
             {
                 doc.Range(0, 0).Select();
                 selection.Find.Execute(ref findText);
-                if (!selection.Find.Found) { MessageBox.Show("Nenhuma ocorrência encontrada!"); }
+                if (!selection.Find.Found) { return ("Nenhuma ocorrência encontrada!"); }
             }
+            return "";
         }
 
         public void replaceAllService(string findtxt, string replacetxt, bool caseSens)
@@ -182,21 +169,23 @@ namespace Exercício1.Source.Services
                     }
                     else aux += Char.ToLower(c);
                 }
+                else aux += '\r';
             }
             doc.Application.Selection.TypeText(aux);
             doc.Range(start, end).Select();
         }
 
-        public void savePDFService()
+        public string savePDFService()
         {
             Word.Document doc = Globals.ThisAddIn.Application.ActiveDocument;
             try
             {
                 doc.ExportAsFixedFormat(fullPathService(), Word.WdExportFormat.wdExportFormatPDF, OpenAfterExport: true);
+                return "";
             }
             catch (System.Runtime.InteropServices.COMException f)
             {
-                MessageBox.Show("Verifique se seu arquivo está salvo em algum local válido!\n\n" + f.Message);
+                return ("Verifique se seu arquivo está salvo em algum local válido!\n\n" + f.Message);
             }
         }
 
